@@ -1,24 +1,34 @@
-public class deque<T> {
 
-    public static class IntNode {
-        public int item;
-        public IntNode next;
-        public IntNode prev;
-        public IntNode(int item, IntNode next, IntNode prev) {
+
+public class deque<T> {
+    public static void Main(String[] args) {
+        System.out.println(2);
+    }
+    public static class IntNode<T> {
+        public T item;
+        public IntNode<T> next;
+        public IntNode<T> prev;
+        public IntNode(T item, IntNode<T> next, IntNode<T> prev) {
             this.item = item;
             this.next = next;
             this.prev = prev;
         }
     }
 
-    private IntNode prev;
+    private IntNode<T> sentinel;
     private int size;
     //Adds an item of type T to the front of the deque
     public deque(){
-
+        sentinel = new IntNode<>(null, null, null);
+        sentinel.next = sentinel;
+        sentinel.prev = sentinel;
+        size = 0;
     }
     public void addFirst(T item){
-
+        IntNode<T> newNode = new IntNode<>(item, null, null);
+        sentinel.next = newNode;
+        newNode.prev = sentinel;
+        size++;
     }
     // Adds an item of type T to the back of the deque
     public void addLast(T item){
