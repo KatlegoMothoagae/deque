@@ -90,16 +90,43 @@ public class deque<T> {
             return firstNode.item;
         }
         System.out.print("cannot remove element from empty list.");
-        return sentinel.item;
+        return null;
     }
     //    Removes and returns the item at the back of the deque. If no such item exists, returns null.
     public T removeLast(){
+        if(!this.isEmpty()){
+            IntNode<T> lastNode = sentinel.prev;
+            sentinel.prev = lastNode.prev;
+            sentinel.prev.next = null;
+            size--;
+            return lastNode.item;
+        }
         return null;
     }
     //    Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such item exists, returns null. Must not alter the deque!
     public  T get(int index){
-        return null;
+        // if the index near the end start traversal from the back
+        if(this.isEmpty() || index < 0 || index >= this.size()){
+            return null;
+        }
+        int n;
+        if(index >= this.size()/2){
+            IntNode<T> currentNode = sentinel.prev;
+            n = this.size() - 1;
+            while (n != index){
+                currentNode = currentNode.prev;
+                n--;
+            }
+            return currentNode.item;
+        }
+        else {
+            IntNode<T> currentNode = sentinel.next;
+            n = 0;
+            while (n != index){
+                currentNode = currentNode.next;
+                n++;
+            }
+            return currentNode.item;
+        }
     }
-
-
 }
